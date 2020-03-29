@@ -1,14 +1,14 @@
 ![Logo](admin/sql-logger.png)
-# ioBroker.sql-logger
+# sql-logger
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.sql-logger.svg)](https://www.npmjs.com/package/iobroker.sql-logger)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.sql-logger.svg)](https://www.npmjs.com/package/iobroker.sql-logger)
+[![NPM version](http://img.shields.io/npm/v/sql-logger.svg)](https://www.npmjs.com/package/iobroker.sql-logger)
+[![Downloads](https://img.shields.io/npm/dm/sql-logger.svg)](https://www.npmjs.com/package/iobroker.sql-logger)
 ![Number of Installations (latest)](http://iobroker.live/badges/sql-logger-installed.svg)
 ![Number of Installations (stable)](http://iobroker.live/badges/sql-logger-stable.svg)
-[![Dependency Status](https://img.shields.io/david/LiTe1991/iobroker.sql-logger.svg)](https://david-dm.org/LiTe1991/iobroker.sql-logger)
-[![Known Vulnerabilities](https://snyk.io/test/github/LiTe1991/ioBroker.sql-logger/badge.svg)](https://snyk.io/test/github/LiTe1991/ioBroker.sql-logger)
+[![Dependency Status](https://img.shields.io/david/LiTe1991/sql-logger.svg)](https://david-dm.org/LiTe1991/iobroker.sql-logger)
+[![Known Vulnerabilities](https://snyk.io/test/github/LiTe1991/sql-logger/badge.svg)](https://snyk.io/test/github/LiTe1991/ioBroker.sql-logger)
 
-[![NPM](https://nodei.co/npm/iobroker.sql-logger.png?downloads=true)](https://nodei.co/npm/iobroker.sql-logger/)
+[![NPM](https://nodei.co/npm/sql-logger.png?downloads=true)](https://nodei.co/npm/iobroker.sql-logger/)
 
 **Tests:**: [![Travis-CI](http://img.shields.io/travis/LiTe1991/ioBroker.sql-logger/master.svg)](https://travis-ci.org/LiTe1991/ioBroker.sql-logger)
 
@@ -22,7 +22,7 @@ This section is intended for the developer. It can be deleted later
 ### Getting started
 
 You are almost done, only a few steps left:
-1. Create a new repository on GitHub with the name `ioBroker.sql-logger`
+1. Create a new repository on GitHub with the name `sql-logger`
 1. Initialize the current folder as a new git repository:  
     ```bash
     git init
@@ -31,7 +31,7 @@ You are almost done, only a few steps left:
     ```
 1. Link your local repository with the one on GitHub:  
     ```bash
-    git remote add origin https://github.com/LiTe1991/ioBroker.sql-logger
+    git remote add origin https://github.com/LiTe1991/sql-logger
     ```
 
 1. Push all files to the GitHub repo:  
