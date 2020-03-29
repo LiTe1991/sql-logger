@@ -6,13 +6,21 @@ systemDictionary = {
         'en': 'Adapter settings for sql-logger',
         'de': 'Adaptereinstellungen für sql-logger',
     },
+    'sqlServerSettings': {
+        'en': 'Sql-server settings',
+        'de': 'Einstellung SQL-Server',
+    },
     'sqlServerSettings_info': {
         'en': 'Enter your sql server setting (necessary)',
         'de': 'Tragen Sie ihre SQL-Server Einstellungen ein (notwendig)',
     },
-    'sqlServerSettings': {
-        'en': 'Sql server settings',
-        'de': 'Einstellung SQL-Server',
+    'loggingSettings': {
+        'en': 'Logging settings',
+        'de': 'Einstellung fürs Aufzeichnen',
+    },
+    'loggingSettings_info': {
+        'en': 'Enter your logging settings',
+        'de': 'Tragen Sie ihre Aufzeichnungs Einstellungen ein',
     },
     'sqlServerSetting_hostname_label': {
         'en': 'Hostname',

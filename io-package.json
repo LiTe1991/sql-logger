@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "sql-logger",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
             "0.0.6": {
                 "en": "initial release",
@@ -46,17 +46,17 @@
         ],
         "keywords": [
             "ioBroker",
-            "template",
-            "Smart Home",
-            "home automation"
+            "SQL",
+            "Logging",
+            "History"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "sql-logger.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/LiTe1991/ioBroker.sql-logger/master/admin/sql-logger.png",
-        "readme": "https://github.com/LiTe1991/ioBroker.sql-logger/blob/master/README.md",
+        "extIcon": "https://raw.githubusercontent.com/LiTe1991/sql-logger/master/admin/sql-logger.png",
+        "readme": "https://github.com/LiTe1991/sql-logger/blob/master/README.md",
         "loglevel": "info",
         "mode": "daemon",
         "type": "general",
@@ -73,8 +73,11 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
+        "host": "",
+        "port": 1,
+        "user": "",
+        "password": "",
+        "database": "iobroker"
     },
     "objects": [],
     "instanceObjects": []

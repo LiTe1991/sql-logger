@@ -1,22 +1,22 @@
 {
-  "name": "iobroker.sql-logger",
-  "version": "0.0.6",
+  "name": "sql-logger",
+  "version": "0.0.7",
   "description": "sql-logger",
   "author": {
     "name": "LiTe",
     "email": "vadim19917@gmail.com"
   },
-  "homepage": "https://github.com/LiTe1991/ioBroker.sql-logger",
+  "homepage": "https://github.com/LiTe1991/sql-logger",
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "template",
-    "Smart Home",
-    "home automation"
+    "SQL",
+    "Logging",
+    "History"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/LiTe1991/ioBroker.sql-logger"
+    "url": "https://github.com/LiTe1991/sql-logger"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.2.1",
@@ -52,7 +52,7 @@
     "lint": "eslint"
   },
   "bugs": {
-    "url": "https://github.com/LiTe1991/ioBroker.sql-logger/issues"
+    "url": "https://github.com/LiTe1991/sql-logger/issues"
   },
   "readmeFilename": "README.md"
 }

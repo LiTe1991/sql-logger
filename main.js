@@ -7,16 +7,17 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
-const mysql = require('mysql');
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
+const mysql = require('mysql');
 
 /**
  * The adapter instance
  * @type {ioBroker.Adapter}
  */
 let adapter;
+
+// Own variables
 let mySqlPool;
 
 /**
@@ -75,15 +76,18 @@ function startAdapter(options) {
 function main() {
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
-    adapter.log.info('config option1: ' + adapter.config.option1);
-    adapter.log.info('config option2: ' + adapter.config.option2);
+    adapter.log.info('config option1: ' + adapter.config.hostname);
+    adapter.log.info('config option2: ' + adapter.config.port);
+    adapter.log.info('config option2: ' + adapter.config.user);
+    adapter.log.info('config option2: ' + adapter.config.password);
+    adapter.log.info('config option2: ' + adapter.config.database);
 
     /*
         For every state in the system there has to be also an object of type state
         Here a simple template for a boolean variable named "testVariable"
         Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
     */
-    adapter.setObject('testVariable', {
+    /*adapter.setObject('testVariable', {
         type: 'state',
         common: {
             name: 'testVariable',
@@ -93,7 +97,7 @@ function main() {
             write: true,
         },
         native: {},
-    });
+    });*/
 
     // in this template all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
@@ -103,14 +107,14 @@ function main() {
         you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
     */
     // the variable testVariable is set to true as command (ack=false)
-    adapter.setState('testVariable', true);
+    //adapter.setState('testVariable', true);
 
     // same thing, but the value is flagged "ack"
     // ack should be always set to true if the value is received from or acknowledged from the target system
-    adapter.setState('testVariable', { val: true, ack: true });
+    //adapter.setState('testVariable', { val: true, ack: true });
 
     // same thing, but the state is deleted after 30s (getState will return null afterwards)
-    adapter.setState('testVariable', { val: true, ack: true, expire: 30 });
+    //adapter.setState('testVariable', { val: true, ack: true, expire: 30 });
 
     // examples for the checkPassword/checkGroup functions
     adapter.checkPassword('admin', 'iobroker', (res) => {
@@ -120,6 +124,8 @@ function main() {
     adapter.checkGroup('admin', 'admin', (res) => {
         adapter.log.info('check group user admin group admin: ' + res);
     });
+
+    runBackgroundTask();
 }
 
 function processMessage(msg) {
@@ -153,15 +159,27 @@ function checkConnection(msg) {
     mySqlPool.getConnection(function(err, connection) {
         if(err) {
             adapter.log.error('No connection to database: ' + err.message);
-            adapter.sendTo(msg.from, msg.command, {state: 'false'}, msg.callback);
+            adapter.sendTo(msg.from, msg.command, {resultMessage: 'Es konnte keine Verbindung hergestellt werden.'}, msg.callback);
             return false;
         } else {
             adapter.log.info('SQL Connected');
-            adapter.sendTo(msg.from, msg.command, {state: 'true'}, msg.callback);
+            adapter.sendTo(msg.from, msg.command, {resultMessage: 'Verbindung konnte erfolgreich hergestellt werden.'}, msg.callback);
 
             connection.destroy();
         }
     });
+}
+
+function test() {
+    adapter.log.info('config option1: ' + adapter.config.hostname);
+    adapter.log.info('config option2: ' + adapter.config.port);
+    adapter.log.info('config option2: ' + adapter.config.user);
+    adapter.log.info('config option2: ' + adapter.config.password);
+    adapter.log.info('config option2: ' + adapter.config.database);
+}
+
+async function runBackgroundTask() {
+    setInterval(test, 60000);
 }
 
 // @ts-ignore parent is a valid property on module

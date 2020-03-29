@@ -19,10 +19,10 @@
     
     <script type="text/javascript">
         // This will be called by the admin adapter when the settings page loads
-        var getAdminDevices = [];
         function load(settings, onChange) {
             // example: select elements with id=key and class=value and insert value
             if (!settings) return;
+            
             $('.value').each(function () {
                 var $key = $(this);
                 var id = $key.attr('id');
@@ -39,9 +39,7 @@
                         ;
                 }
             });
-            getAdminDevices = settings.getAdminDevices || [];
             onChange(false);
-            values2table('getAdminDevices', getAdminDevices, onChange);
             // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
             if (M) M.updateTextFields();
         }
@@ -58,48 +56,56 @@
                     obj[$this.attr('id')] = $this.val();
                 }
             });
-            obj.getAdminDevices = table2values('getAdminDevices');
             callback(obj);
         }
     </script>
-
 </head>
 
 <body>
     <div class="m adapter-container">
-        <!-- Table for adding Windows devices -->
         <div class="row">
             <div class="col s12">
-                <p class="translate title">sqlServerSettings</p>
-                <p class="translate info">sqlServerSettings_info</p>
-                <div>
-                    <div class="input-field col s12 m6">
-                        <input type="text" id="hostname" required value="Homeserver">
-                        <label for="hostname" class="translate">sqlServerSetting_hostname_label</label>
+                <ul class="tabs">
+                    <li class="tab col s2"><a href="#tab-sqlSettings" class="translate active">sqlServerSettings</a></li>
+                    <li class="tab col s2 le-settings"><a href="#tab-loggingSettings" class="translate">loggingSettings</a></li>
+                </ul>
+            </div>
+            <div id="tab-sqlSettings" class="col s12 page">
+                <div class="col s12">
+                    <p style="font-size: 18px" class="translate info">sqlServerSettings_info</p>
+                    <div>
+                        <div class="input-field col s12 m6">
+                            <input type="text" id="hostname" class="value" required>
+                            <label for="hostname" class="translate">sqlServerSetting_hostname_label</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="number" id="port" min="1" class="value" required>
+                            <label for="port" class="translate">sqlServerSetting_port_label</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="input-field col s12 m6">
+                            <input type="text" id="user" class="value" required>
+                            <label for="user" class="translate">sqlServerSetting_user_label</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="password" id="password" class="value" required>
+                            <label for="password" class="translate">sqlServerSetting_password_label</label>
+                        </div>
                     </div>
                     <div class="input-field col s12 m6">
-                        <input type="number" id="port" min="1" required value="3306">
-                        <label for="port" class="translate">sqlServerSetting_port_label</label>
+                        <input type="text" id="database" class="value" required>
+                        <label for="database" class="translate">sqlServerSetting_database_label</label>
+                        <button style="margin-top: 2em;" id="checkConnection" class="waves-effect waves-light blue btn translate" disabled>sqlServerSetting_check_label</button>
                     </div>
                 </div>
-                <div>
-                    <div class="input-field col s12 m6">
-                        <input type="text" id="user" required value="iobroker_writter">
-                        <label for="user" class="translate">sqlServerSetting_user_label</label>
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <input type="password" id="password" required value="xumak8TE3abo">
-                        <label for="password" class="translate">sqlServerSetting_password_label</label>
-                    </div>
-                </div>
-                <div class="input-field col s12 m6">
-                    <input type="text" id="database" value="iobroker">
-                    <label for="database" class="translate">sqlServerSetting_database_label</label>
-                    <button style="margin-top: 2em;" id="checkConnection" class="waves-effect waves-light blue btn translate" disabled>sqlServerSetting_check_label</button>
+            </div>
+            <div id="tab-loggingSettings" class="col s12 page">
+                <div class="col s12">
+                    <p style="font-size: 18px" class="translate info">loggingSettings_info</p>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -113,14 +119,19 @@
 
         array.forEach(element => {
             element.addEventListener('keyup', function(event) {
-            isInputValid = hostnameField.checkValidity() && portField.checkValidity() && userField.checkValidity() && passwordField.checkValidity();
+                var isInputValid = hostnameField.checkValidity() && portField.checkValidity() && userField.checkValidity() && passwordField.checkValidity();
+                checkButton.disabled = !isInputValid;
+            });
+        });
+
+        window.addEventListener('load', function(event) {
+            var isInputValid = hostnameField.checkValidity() && portField.checkValidity() && userField.checkValidity() && passwordField.checkValidity();
             checkButton.disabled = !isInputValid;
-        });
-        });
+        }, false);
 
         checkButton.addEventListener('click', function(event) {
             getIsAdapterAlive(function (isAlive) {
-                if(!isAlive) {
+                if(isAlive) {
                     sendTo(null, 'checkConnection', {
                         config: {
                             hostname: hostnameField.value,
@@ -130,7 +141,7 @@
                             database: $('#database').val()
                         }
                     }, function (response) {
-                        showMessage(response.state);
+                        showMessage(response.resultMessage);
                     });
                 } else {
                     showMessage('Verbindung kann nicht geprüft werden, weil der Adapter inaktive ist!', 'Fehler');

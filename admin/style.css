@@ -17,10 +17,15 @@
 /*.table-values th { height: 2em; background-color:rgb(104, 104, 104); font-size:90%; }
 /* Table: Add button */
 /*.table-button-add { margin: 0.3em 0 1em 0; }*/
+input[type=text]:not(.browser-default) {
+    box-sizing: border-box !important;
+}
 
 input:invalid {
     border-bottom: 2px solid red  !important;
+    /*box-sizing: border-box !important;*/
 }
 input:focus:invalid { 
     border-bottom: 2px solid red !important;
+    /*box-sizing: border-box !important;*/
 }
