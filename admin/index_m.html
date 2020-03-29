@@ -1,0 +1,143 @@
+<html>
+
+<head>
+
+    <!-- Load ioBroker scripts and styles-->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+    <!-- Load our own files -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="words.js"></script>
+    
+    <script type="text/javascript">
+        // This will be called by the admin adapter when the settings page loads
+        var getAdminDevices = [];
+        function load(settings, onChange) {
+            // example: select elements with id=key and class=value and insert value
+            if (!settings) return;
+            $('.value').each(function () {
+                var $key = $(this);
+                var id = $key.attr('id');
+                if ($key.attr('type') === 'checkbox') {
+                    // do not call onChange direct, because onChange could expect some arguments
+                    $key.prop('checked', settings[id])
+                        .on('change', () => onChange())
+                        ;
+                } else {
+                    // do not call onChange direct, because onChange could expect some arguments
+                    $key.val(settings[id])
+                        .on('change', () => onChange())
+                        .on('keyup', () => onChange())
+                        ;
+                }
+            });
+            getAdminDevices = settings.getAdminDevices || [];
+            onChange(false);
+            values2table('getAdminDevices', getAdminDevices, onChange);
+            // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+            if (M) M.updateTextFields();
+        }
+
+        // This will be called by the admin adapter when the user presses the save button
+        function save(callback) {
+            // example: select elements with class=value and build settings object
+            var obj = {};
+            $('.value').each(function () {
+                var $this = $(this);
+                if ($this.attr('type') === 'checkbox') {
+                    obj[$this.attr('id')] = $this.prop('checked');
+                } else {
+                    obj[$this.attr('id')] = $this.val();
+                }
+            });
+            obj.getAdminDevices = table2values('getAdminDevices');
+            callback(obj);
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="m adapter-container">
+        <!-- Table for adding Windows devices -->
+        <div class="row">
+            <div class="col s12">
+                <p class="translate title">sqlServerSettings</p>
+                <p class="translate info">sqlServerSettings_info</p>
+                <div>
+                    <div class="input-field col s12 m6">
+                        <input type="text" id="hostname" required value="Homeserver">
+                        <label for="hostname" class="translate">sqlServerSetting_hostname_label</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input type="number" id="port" min="1" required value="3306">
+                        <label for="port" class="translate">sqlServerSetting_port_label</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-field col s12 m6">
+                        <input type="text" id="user" required value="iobroker_writter">
+                        <label for="user" class="translate">sqlServerSetting_user_label</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input type="password" id="password" required value="xumak8TE3abo">
+                        <label for="password" class="translate">sqlServerSetting_password_label</label>
+                    </div>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input type="text" id="database" value="iobroker">
+                    <label for="database" class="translate">sqlServerSetting_database_label</label>
+                    <button style="margin-top: 2em;" id="checkConnection" class="waves-effect waves-light blue btn translate" disabled>sqlServerSetting_check_label</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const checkButton = document.getElementById('checkConnection');
+        const hostnameField = document.getElementById('hostname');
+        const portField = document.getElementById('port');
+        const userField = document.getElementById('user');
+        const passwordField = document.getElementById('password');
+        
+        var array = [hostnameField, portField, userField, passwordField];
+
+        array.forEach(element => {
+            element.addEventListener('keyup', function(event) {
+            isInputValid = hostnameField.checkValidity() && portField.checkValidity() && userField.checkValidity() && passwordField.checkValidity();
+            checkButton.disabled = !isInputValid;
+        });
+        });
+
+        checkButton.addEventListener('click', function(event) {
+            getIsAdapterAlive(function (isAlive) {
+                if(!isAlive) {
+                    sendTo(null, 'checkConnection', {
+                        config: {
+                            hostname: hostnameField.value,
+                            port: portField.value,
+                            user: userField.value,
+                            password: passwordField.value,
+                            database: $('#database').val()
+                        }
+                    }, function (response) {
+                        showMessage(response.state);
+                    });
+                } else {
+                    showMessage('Verbindung kann nicht geprüft werden, weil der Adapter inaktive ist!', 'Fehler');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

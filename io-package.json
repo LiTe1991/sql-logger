@@ -1,0 +1,81 @@
+{
+    "common": {
+        "name": "sql-logger",
+        "version": "0.0.6",
+        "news": {
+            "0.0.6": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "SqlLogger",
+        "titleLang": {
+            "en": "SqlLogger",
+            "de": "SqlLogger",
+            "ru": "SqlLogger",
+            "pt": "SqlLogger",
+            "nl": "SqlLogger",
+            "fr": "SqlLogger",
+            "it": "SqlLogger",
+            "es": "SqlLogger",
+            "pl": "SqlLogger",
+            "zh-cn": "SqlLogger"
+        },
+        "desc": {
+            "en": "sql-logger",
+            "de": "sql-logger",
+            "ru": "sql-logger",
+            "pt": "sql-logger",
+            "nl": "sql-logger",
+            "fr": "sql-logger",
+            "it": "sql-logger",
+            "es": "sql-logger",
+            "pl": "sql-logger",
+            "zh-cn": "sql-logger"
+        },
+        "authors": [
+            "LiTe <vadim19917@gmail.com>"
+        ],
+        "keywords": [
+            "ioBroker",
+            "template",
+            "Smart Home",
+            "home automation"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "sql-logger.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/LiTe1991/ioBroker.sql-logger/master/admin/sql-logger.png",
+        "readme": "https://github.com/LiTe1991/ioBroker.sql-logger/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "general",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "materialize": true,
+        "message": true,
+        "messagebox": true,
+        "dependencies": [
+            {
+                "js-controller": ">=1.4.2"
+            }
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": []
+}

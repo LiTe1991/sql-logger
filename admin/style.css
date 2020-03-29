@@ -1,0 +1,26 @@
+/* You can delete those if you want. I just found them very helpful */
+* {
+    box-sizing: border-box
+}
+.m {
+    /* Don't cut off dropdowns! */
+    overflow: initial;
+}
+
+/* Add your styles here */
+
+/* Title of each section */
+.title { font-weight: bold; }
+/* Info text of each section */
+.info { margin-left: 1em; }
+/* Table header */
+/*.table-values th { height: 2em; background-color:rgb(104, 104, 104); font-size:90%; }
+/* Table: Add button */
+/*.table-button-add { margin: 0.3em 0 1em 0; }*/
+
+input:invalid {
+    border-bottom: 2px solid red  !important;
+}
+input:focus:invalid { 
+    border-bottom: 2px solid red !important;
+}
